@@ -19,11 +19,18 @@ CREATE TABLE WareHouse (
     PRIMARY KEY(ID)
 );
 
-CREATE TABLE ProductInventory (
+CREATE TABLE Products (
     ID INT,
     ProductName VARCHAR(50),
-    Amount INT,
+    PRIMARY KEY(ID)
+);
+
+CREATE TABLE ProductInventory (
+    ID INT,
+    ProductID INT,
+    WareHouseAmount INT,
     WareHouseID INT,
+    FOREIGN KEY (ProductID) REFERENCES Products(ID) ON DELETE NO ACTION,
     FOREIGN KEY (WareHouseID) REFERENCES WareHouse(ID) ON DELETE NO ACTION, 
     PRIMARY KEY (ID)
 );
@@ -40,7 +47,10 @@ INSERT INTO WareHouse (ID,WarehouseName,WareHouseCity,WarehouseStreet,CountryID)
 INSERT INTO WareHouse (ID,WarehouseName,WareHouseCity,WarehouseStreet,CountryID)
     VALUES (2,'Warehouse-2','City-2','Street-2',2);
 
-INSERT INTO ProductInventory (ID,ProductName,Amount,WareHouseID)
-	VALUES (1, 'AwersomeProduct', 2, 1);
-INSERT INTO ProductInventory (ID,ProductName,Amount,WareHouseID)
-	VALUES (2, 'AwersomeProduct', 5, 2);
+INSERT INTO Products(ID,ProductName)
+    VALUES (1, 'AwersomeProduct');
+
+INSERT INTO ProductInventory (ID,ProductID,WareHouseAmount,WareHouseID)
+	VALUES (1, 1, 2, 1);
+INSERT INTO ProductInventory (ID,ProductID,WareHouseAmount,WareHouseID)
+	VALUES (2, 1, 5, 2);
